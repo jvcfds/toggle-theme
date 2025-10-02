@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import type { ReactNode } from "react";
 
 type ThemeContextType = {
   dark: boolean;
@@ -10,10 +11,10 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [dark, setDark] = useState(false);
 
-  // Carrega tema salvo (ou preferência do SO) e aplica no <html>
+  // Carregar tema salvo (ou preferência do sistema)
   useEffect(() => {
     const saved = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const shouldDark = saved ? saved === "dark" : prefersDark;
 
     setDark(shouldDark);
